@@ -5,10 +5,14 @@
  * Patrick Marino
  */
 
-import java.util.*;
 import java.util.concurrent.*;
 
+
 public class MyScheduler {
+
+    private BlockingQueue outgoingQueue;
+    private BlockingQueue incomingQueue;
+    
     
     //constructor
     public MyScheduler(int numJobs, String property) {
@@ -24,5 +28,11 @@ public class MyScheduler {
     public BlockingQueue<Job> getIncomingQueue() {
         //returns BlockingQueue of Jobs
         //call or create this in constructor?
+    }
+
+    public void run() {
+        notifyAll();
+
+
     }
 }
