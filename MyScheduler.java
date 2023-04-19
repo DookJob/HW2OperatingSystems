@@ -6,7 +6,7 @@
  */
 
 import java.util.*;
-import java.util.concurrent.*; //for java.util.concurrent.BlockingQueue ??
+import java.util.concurrent.*;
 
 public class MyScheduler {
     
@@ -21,7 +21,7 @@ public class MyScheduler {
     }
 
     //method
-    public getIncomingQueue() {
+    public BlockingQueue<Job> getIncomingQueue() {
         //returns BlockingQueue of Jobs
         //call or create this in constructor?
     }
