@@ -39,10 +39,16 @@ public class MyScheduler {
     }
 
     public void run() {
-        
-
 
         
+
+        if (this.timeType == "max wait") {
+            System.out.println(this.timeType);
+        }
+
+        if (incomingQueue.size() == 0) {
+            
+        }
 
     }
 }
