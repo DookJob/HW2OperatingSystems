@@ -1,4 +1,3 @@
-
 import java.util.*;
 import java.util.concurrent.*;
 import java.lang.*;
@@ -293,4 +292,3 @@ public class SchedulerTester {
         throw new IllegalArgumentException("\"" + goal + "\" is not an appopriate goal!");
     }
 }
-
