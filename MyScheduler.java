@@ -6,6 +6,8 @@
  */
 
 import java.util.concurrent.*;
+import java.util.ArrayList;
+import java.util.Comparator;
 
 
 public class MyScheduler {
@@ -37,6 +39,7 @@ public class MyScheduler {
         return this.incomingQueue;
     }
 
+
     public void run() {
 
         //first job goes straight into outgoing queue
@@ -45,40 +48,43 @@ public class MyScheduler {
         } catch(InterruptedException e) {
             System.out.println(e);
         }
-        
 
-        Job[] incomingArray = incomingQueue.toArray(Job[]::new);
-        if (this.timeType == "max wait") {
-            for(int i = 0; i < numJobs; i++){
+        // if(timeType == "max wait") {
+            PriorityBlockingQueue<Job> pbq1 = new PriorityBlockingQueue<Job>(numJobs, new jobComparator1());
+            for(int i = 1; i< numJobs; i++){
                 try {
-                    outgoingQueue.add(incomingQueue.take());
-                } catch(InterruptedException e) {
+                    pbq1.add(incomingQueue.take());
+                }  catch(InterruptedException e) {
                     System.out.println(e);
                 }
+                outgoingQueue.add(pbq1.poll());
             }
 
+        // }else if(timeType == "avg wait") {
+        //     PriorityBlockingQueue<Job> pbq = new PriorityBlockingQueue<Job>();
+        //     for(int i = 1; i< numJobs; i++){
+                    
+        //     }
 
-        } else if(this.timeType == "avg wait"){
-            // avg wait
-            for(int i = 0; i < numJobs; i++){
-                try {
-                    outgoingQueue.add(incomingQueue.take());
-                } catch(InterruptedException e) {
-                    System.out.println(e);
-                }
-            }
-
-            
-        } else {
-            // "combined"
-            for(int i = 0; i < numJobs; i++){
-                try {
-                    outgoingQueue.add(incomingQueue.take());
-                } catch(InterruptedException e) {
-                    System.out.println(e);
-                }
-            }
-        }
-
+        // }else { //combined
+        //     PriorityBlockingQueue<Job> pbq = new PriorityBlockingQueue<Job>();
+        //     for(int i = 1; i< numJobs; i++){
+                    
+        //     }
+                
+        // }
     }
+}
+
+class jobComparator1 implements Comparator<Job>{
+    public int compare(Job j1, Job j2) {
+        if(j1.getWaitTime() < j2.getWaitTime()){
+            return 1;
+        }else if(j1.getWaitTime() > j2.getWaitTime()){
+            return -1;
+        }else{
+            return 0;
+        }
+    }
+
 }
